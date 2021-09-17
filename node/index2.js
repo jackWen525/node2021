@@ -1,9 +1,10 @@
 const fs = require('fs');
+const {pmisReadFile} = require("./index");
 const data = new Uint8Array(new Buffer.from('Hello Node.js'));
-fs.writeFile('b.txt', data, (err) => {
-    if (err) throw err;
-    console.log('The file has been saved!');
-});
+// fs.writeFile('b.txt', data, (err) => {
+//     if (err) throw err;
+//     console.log('The file has been saved!');
+// });
 /**
  * 
  * @param {*} file 文件名
@@ -25,8 +26,19 @@ function PerWite(file, data, flag = "w", encoding = "utf-8") {
     })
 }
 
-PerWite("b.txt","hskjhjsjk").then(res=>{
-    console.log(res);
-},err=>{
-    console.log(err);
+// PerWite("b.txt","hskjhjsjk").then(res=>{
+//     console.log(res);
+// },err=>{
+//     console.log(err);
+// })
+fs.readdir("../node",(err,data)=>{
+    if(err){
+        console.log(err);
+    }else{
+        data.forEach(async(e)=>{
+          const contxt = await  pmisReadFile(e);
+          PerWite("b.txt",contxt);
+        })
+        
+    }
 })
