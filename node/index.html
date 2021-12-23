@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+        width: 6px;
+        background: rgba(#101F1C, 0.1);
+        -webkit-border-radius: 2em;
+        -moz-border-radius: 2em;
+        border-radius: 2em;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: rgba(#101F1C, 0.5);
+        background-clip: padding-box;
+        min-height: 28px;
+        -webkit-border-radius: 2em;
+        -moz-border-radius: 2em;
+        border-radius: 2em;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: rgba(#101F1C, 1);
+    }
+    .container {
+	position: relative;
+	display: inline-block;
+	margin-top: 50px;
+}
+
+.label {
+	display: inline-block;
+	box-sizing: border-box;
+	width: 105px;
+	height: 32px;
+	line-height: 32px;
+	background-color: #F2F2F2;
+	color: #5F5F5F;
+	text-align: center;
+	border-radius: 3px;
+	font-size: 14px;
+}
+
+.label.selected {
+	background-color: #4180cc;
+	color: white;
+}
+
+.delete_btn {
+	display: none;
+	position: absolute;
+	top: -8px;
+	left: 50%;
+	transform: translateX(-50%) translateY(-100%);
+	color: white;
+	padding: 10px 16px;
+	background-color: rgba(0, 0, 0, .7);
+	border-radius: 6px;
+	line-height: 1;
+	white-space: nowrap;
+	font-size: 12px;
+}
+
+.delete_btn::after {
+	content: '';
+	width: 0;
+	height: 0;
+	border-width: 5px;
+	border-style: solid;
+	border-color: rgba(0, 0, 0, .7) transparent transparent transparent;
+	position: absolute;
+	bottom: -9px;
+	left: 50%;
+	transform: translateX(-50%);
+}
+</style>
+
+<body>
+    <script src="./clipboard.js-master/dist/clipboard.min.js"></script>
+    <button class="btn" data-clipboard-text="Just because you can doesn't mean you should — clipboard.js"> Copy to
+        clipboard</button>
+    <div id="btn"></div>
+    <div class="container">
+        <div class="label" id="label">长按我</div>
+        <div class="delete_btn">删除</div>
+    </div>
+    <script>
+        // var clipboard = new ClipboardJS('.btn');
+        // clipboard.on('success', function (e) {
+        //     console.info('Action:', e.action);
+        //     console.info('Text:', e.text);
+        //     console.info('Trigger:', e.trigger);
+        //     e.clearSelection();
+        // });
+
+        // clipboard.on('error', function (e) {
+        //     console.error('Action:', e.action);
+        //     console.error('Trigger:', e.trigger);
+        // });
+        // const btn = document.querySelector("#btn");
+
+        // let fs = document.createDocumentFragment();
+        // for (let index = 0; index < 100; index++) {
+        //     let li = document.createElement("li");
+        //     li.innerHTML = `第${index + 1}行`
+        //     fs.appendChild(li);
+        // }
+        // btn.appendChild(fs);
+
+        let timer = null
+        let startTime = ''
+        let endTime = ''
+        const label = document.querySelector('.label')
+        const deleteBtn = document.querySelector('.delete_btn')
+
+        label.addEventListener('touchstart', function () {
+            startTime = +new Date()
+            timer = setTimeout(function () {
+                deleteBtn.style.display = 'block'
+            }, 2000)
+        })
+
+        label.addEventListener('touchend', function () {
+            endTime = +new Date()
+            clearTimeout(timer)
+            if (endTime - startTime < 2000) {
+                // 处理点击事件
+                label.classList.add('selected')
+            }
+        })
+let i = 4;
+        if(i > 1) {
+            console.log(1);
+        }else if(i > 3) {
+            console.log(2);
+        }
+    </script>
+</body>
+
+</html>
